@@ -48,7 +48,7 @@ class ForSpec extends WordSpec with Matchers {
     }
   }
 
-  "FlatMapの挙動" should {
+  "同等のFlatMapの挙動" should {
 
     "成功時は Successが返る" in {
       assert(flatMapStatement((10, 20), (30, 40)) == Success(100))
