@@ -1,3 +1,5 @@
+package basic
+
 import org.scalatest.{Matchers, WordSpec}
 
 class BasicSpec extends WordSpec with Matchers {

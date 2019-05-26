@@ -1,3 +1,5 @@
+package basic
+
 import org.scalatest._
 
 import scala.util.{Failure, Success, Try}
