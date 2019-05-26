@@ -4,7 +4,6 @@ class BasicSpec extends WordSpec with Matchers {
 
 
   "通常のメソッド" should {
-
     def plus(i: Int, j: Int): Int = {
       i + j // "return" は不要
     }
@@ -23,6 +22,24 @@ class BasicSpec extends WordSpec with Matchers {
       val partial1 = curriedPlus(1)
       assert(partial1(2) == 3)
       assert(partial1(3) == 4)
+    }
+
+    "戻り値のない(副作用のある)メソッドは戻り値を Unit(=void)で表現できる" in {
+      var result = 0
+      def sideEffectPlus(i: Int, j: Int): Unit = {
+        result = i + j
+      }
+      sideEffectPlus(1, 2)
+      assert(result == 3)
+    }
+
+    "複数戻り値があるメソッドは戻り値をタプルで表現できる" in {
+      def divide(i: Int, j: Int): (Int, Int) = {
+        val answer = i / j
+        val remainder = i % j
+        (answer, remainder)
+      }
+      assert(divide(10, 3) == (3, 1))
     }
 
   }
