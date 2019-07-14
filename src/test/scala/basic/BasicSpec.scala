@@ -4,7 +4,6 @@ import org.scalatest.{Matchers, WordSpec}
 
 class BasicSpec extends WordSpec with Matchers {
 
-
   "通常のメソッド" should {
     def plus(i: Int, j: Int): Int = {
       i + j // "return" は不要
