@@ -6,8 +6,10 @@ import scala.util.{Failure, Success, Try}
 
 class BasicSpec extends WordSpec with Matchers {
 
+  // モデルは case class として作成することで処理を簡易化
   case class UserAccount(val id: String, val pass: String, login: Boolean = false)
 
+  // ビジネス関数をModuleとしてTrait上で管理
   trait UserAccountModule {
     def login(id: String, pass: String): Try[UserAccount] = Try(UserAccount(id, pass, true))
 
@@ -23,6 +25,7 @@ class BasicSpec extends WordSpec with Matchers {
     }
   }
 
+  // Objectとして実体化
   object UserAccountService extends UserAccountModule
 
   "UserAccount" should {
