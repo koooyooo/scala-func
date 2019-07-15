@@ -25,8 +25,31 @@ class BasicSpec extends WordSpec with Matchers {
     }
   }
 
+  trait Transactionable {
+    def tx[A](op: () => Try[A]): Try[A] = {
+      println("startTx")
+      op() match {
+        case Success(a) => {
+          println("commitTx")
+          Success(a)
+        }
+        case Failure(e) => {
+          println("rollbackTx")
+          Failure(e)
+        }
+      }
+    }
+  }
+
   // Objectとして実体化
-  object UserAccountService extends UserAccountModule
+  trait UserAccountTxModule extends UserAccountModule with Transactionable {
+    def loginTx(id: String, pass: String) = tx{ () =>
+      login(id, pass)
+    }
+
+  }
+
+  object UserAccountService extends UserAccountTxModule
 
   "UserAccount" should {
 
